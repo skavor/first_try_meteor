@@ -1,0 +1,9 @@
+{
+    "public": {
+        "name": "xxxx"
+    },
+    "paypal": {
+        "clientId": "PC-xxxx",
+        "secretId": "xxxxx"
+    }
+}

@@ -1,0 +1,25 @@
+<body>
+    <div class="container">
+        <fieldset>
+            <legend><h3>Slangs</h3></legend>
+      <!--header>
+        <h1 class="text-center">Slang Bucket</h1>
+      </header-->
+      <div class="col-sm-12">
+        {{#each slangs}}
+          {{> slang}}
+        {{/each}}
+      </div>
+    </fieldset>
+    </div>
+  </body>
+  <template name="slang">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="btn">{{ slang }}</span></h3>
+        </div>
+        <div class="panel-body">
+          <p> {{ definition }} </p>
+        </div>
+      </div>
+  </template>
