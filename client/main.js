@@ -1,23 +1,29 @@
 import { Template } from 'meteor/templating';
 
-import {Resolutions} from '/imports/api/resolutions/collection.js';
+
 
 import '/imports/ui/welcome/welcome.js';
-import '/imports/ui/resolution/resolution.js';
+import '/imports/ui/resolutions/resolutions.js';
 import '../imports/startup/both/accounts-config';
 
 import './main.html';
 import '../imports/ui/slangs/slangs'
 
-Meteor.subscribe("resolutions");
+
+
+Template.body.onCreated(function () {
+	this.showResolutions = new ReactiveVar(true); 
+})
 
 Template.body.helpers({
-	resolutions: function(){
-		return Resolutions.find({}, { sort: { createdAt: -1 }});
+	showResolutions() {
+		return Template.instance().showResolutions.get();
 	}
-	
 });
 Template.body.events({
+	'click #toggleResolutions':function (event, templateInstance) {
+		templateInstance.showResolutions.set(!templateInstance.showResolutions.get())
+	},
 	'submit .new-resolution':function(event){
 		var name = event.target.name.value;
 		var id = event.target.id.value;
@@ -45,7 +51,7 @@ Template.body.events({
 		event.target.id.value="new";
 		console.log(name);
 
-      return false;
+      	return false;
 		
 
 	}

@@ -17,11 +17,10 @@
             </form>
           {{/if}}
       </header>
-      <ul>
-        {{#each resolutions}}
-          {{> resolution}}
-        {{/each}}
-      </ul>
+      {{#if showResolutions}}
+        {{> Resolutions}}
+      {{/if}}
+      <button id="toggleResolutions">Show/hide Resolutions</button>
       <h3>LOGIN</h3>
       {{> loginButtons}}
     </fieldset>
