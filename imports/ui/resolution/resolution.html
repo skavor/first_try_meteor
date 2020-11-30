@@ -1,10 +1,10 @@
-<template name="resolution"> 
-    <!--li class="{{#if checked}}checked{{/if}}"-->
+<template name="Resolution"> 
     <li>
-        <!--input type="checkbox" checked="{{checked}}" class="toggle-checked" /-->
-         <span class="text"><strong>{{name}}</strong></span>
-         <button class="update">Update resolution</button>
-         <button class="delete">Remove resolution</button>
+        <span class="text"><strong>{{name}}</strong></span>
+        {{#if canManageResolution}}
+            <button class="update">Update resolution</button>
+            <button class="delete">Remove resolution</button>
+        {{/if}}
     </li> 
-    <li>{{createdAt}}</li>
+    <li>{{createdAt}} by {{authorId}}</li>
 </template>

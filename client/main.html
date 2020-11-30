@@ -1,27 +1,3 @@
 <head>
   <title>Meteor Chat Application.</title>
 </head>
-
-<body>  
-  <h1>Chatapp</h1>
-  {{> welcome }} 
-  <div class="container">
-    <h3> Resolutions</h3>
-      <header>
-          {{#if currentUser}}
-            <form class="new-resolution">
-              <input id="resolutionId" type="hidden" name="id" value="new">
-              <input id="resolutionName" type="text" name="name" placeholder="A new resolution">
-              <button type="submit" value="Submit">Submit</button>
-            </form>
-          {{/if}}
-      </header>
-      {{#if showResolutions}}
-        {{> Resolutions}}
-      {{/if}}
-      <button id="toggleResolutions">Show/hide Resolutions</button>
-      <h3>LOGIN</h3>
-      {{> loginButtons}}
-    
-  </div>
-</body>

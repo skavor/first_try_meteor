@@ -1,7 +1,16 @@
 <template name="Resolutions">
+  <header>
+    
+    <form class="new-resolution">
+      <input id="resolutionId" type="hidden" name="id" value="new">
+      <input id="resolutionName" type="text" name="name" placeholder="A new resolution">
+      <button type="submit" value="Submit">Submit</button>
+    </form>
+    
+  </header>
   <ul>
     {{#each resolutions}}
-      {{> resolution}}
+      {{> Resolution}}
     {{/each}}
   </ul>
 </template>

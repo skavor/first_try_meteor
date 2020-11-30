@@ -12,16 +12,16 @@ Meteor.methods({
         }
     },
     'Resolutions.update'(id,name){
-
         if(this.userId){
-            return Resolutions.update({_id: id},{
+
+            return Resolutions.update({_id: id, authorId: this.userId},{
                 $set:{name:name}
             });
         }
     },
     'Resolutions.delete'(id){
         if(this.userId){
-            return Resolutions.remove(id);
+            return Resolutions.remove({_id: id, authorId: this.userId});
         }
     }
 })
