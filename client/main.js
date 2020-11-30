@@ -4,10 +4,11 @@ import { Template } from 'meteor/templating';
 
 import '/imports/ui/welcome/welcome.js';
 import '/imports/ui/resolutions/resolutions.js';
+import '../imports/ui/slangs/slangs';
 import '../imports/startup/both/accounts-config';
 
 import './main.html';
-import '../imports/ui/slangs/slangs'
+
 
 
 

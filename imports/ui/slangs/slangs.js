@@ -1,20 +1,42 @@
-import { Template } from 'meteor/templating';
 
+import { Template } from 'meteor/templating';
+import {Slangs} from '../../api/slags/collection';
 import './slangs.html';
 
+
+
 Template.body.helpers({
-  slangs: [
-    { slang: "Yoruba Demon",
-      definition: "Nigerian guy (yoruba) who goes after a young lady's heart with no intention of loving her. They are typically met at parties, and would mostly wear white agbada."
-    },
-    { slang: "Bye Felicia",
-      definition: "The perfect dismissal phrase for waving goodbye to someone or something unimportant."
-    },
-    { slang: "GOAT",
-      definition: "An acronym for praising someone doing well in a certain activity. 'Greatest of all time'."
-    },
-    { slang: "Low key",
-      definition: "Keeping some activity or news under wraps."
-    },
-  ],
+  slangs(){
+    return Slangs.find({},{sort:{createdAt:-1}});
+  }
+});
+Template.body.events({
+  'submit .new-slang'(event){
+   // event.preventDeafult();
+
+    const slang =event.target.slang.value;
+    const definition = event.target.definition.value;
+    
+    Meteor.call('Slangs.add',slang,definition,function(error,res){
+      if(!error){
+        alert('salng has not added');
+      }else{
+        alert('slang has been added');
+      }
+    })
+    event.target.slang.value='';
+    event.target.definition.value='';
+  },
+  'click .delete':function(event){
+    Meteor.call('Slangs.delete',this._id,function(error, result) {
+      if (error) {
+        alert('resolution not deleted');
+      } else {
+        alert('resolution has been deleted!');
+      }
+    });
+  event.stopImmediatePropagation();
+  event.stopPropagation();
+    
+  }
 });
