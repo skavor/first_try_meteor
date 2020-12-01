@@ -11,7 +11,7 @@ Template.Login.events({
             if(!err){
               FlowRouter.go('/resolutions');
             }else{
-                alert('erreur de connexion');
+               FlowRouter.go('/login');
             }
         })
     }
