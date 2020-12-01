@@ -20,6 +20,6 @@ FlowRouter.route('/login', {
 
 FlowRouter.route('/resolutions', {
     action: function(params, queryParams) {
-        BlazeLayout.render('InsideLayout', {main: 'Resolutions', title: 'Resolutions Page'});
+        BlazeLayout.render('InsideLayout', { top:'Header',main: 'Resolutions'});
     }
 });
