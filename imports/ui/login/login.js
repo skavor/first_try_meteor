@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import './login.html';
 
 Template.Login.events({
-    'submit form'(event) {
+    'submit .form'(event) {
         event.preventDefault();
         var email = event.target.email.value;
         var password = event.target.password.value;
@@ -11,7 +11,7 @@ Template.Login.events({
             if(!err){
               FlowRouter.go('/resolutions');
             }else{
-               FlowRouter.go('/login');
+               alert(error.reason)
             }
         })
     }

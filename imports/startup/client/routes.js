@@ -8,7 +8,7 @@ import '../../ui/register/register';
 import '../../ui/resolutions/resolutions';
 
 const privateRoutes = ['resolutions'];
-const notLoggedInRoutes = ['login', 'register'];
+const notLoggedInRoutes = ['login','register'];
 
 FlowRouter.triggers.enter([function () {
     if (Meteor.userId()) {
