@@ -2,7 +2,16 @@
     <h3>Slangs page</h3>
       <a href="#" id="add" class="btn btn-primary">Add</a>
        {{> NewSlangs}}
-       {{> ListSlangs}}
+
+       <h5>Here are our slangs:</h5>
+          <ul>
+            {{#each slangs}}
+                {{> ListSlangs}}
+                <button class="update">Update resolution</button>
+                <button class="delete">Remove resolution</button>
+            {{/each}}
+          </ul>
+       
    
 </template>
 
@@ -15,29 +24,14 @@
 
 
 
-  <!-- <div class="container">
-    <header>
-      <h1 class="text-center">Slang Bucket</h1>
-    </header>
-    <div class="col-sm-12">
-      <form class="new-slang">
-        <div class="form-group">
-          <input type="text" name="slang" class="form-control" placeholder="Add new slangs" required="required" />
-        </div>
-        <div class="form-group">
-          <textarea class="form-control" name="definition" placeholder="Add new slang definitions" required></textarea>
-        </div>
-         <div class="form-group">
-          <input class="btn btn-small btn-info" type="submit" value="Add New Slang" />
-        </div>
-      </form>
+<!--  
       <ul>
         {{#each slangs}}
           {{> slang}}
         {{/each}}
       </ul>
     </div>
-  </div> -->
+  </div> --> 
 
 <!-- <template name="Slangs">
   <div class="container">

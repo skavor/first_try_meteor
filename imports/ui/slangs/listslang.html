@@ -1,9 +1,10 @@
 <template name="ListSlangs">
-    <div id="list-slangs">
-        <ul>
-            {{#each slangs}}
-            {{> Slangs}}
-            {{/each}}
-        </ul>   
-      </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>{{ slang }}</strong></h3>
+        </div>
+        <div class="panel-body">
+          <p> {{ definition }} </p>
+        </div>
+      </div>     
 </template>
