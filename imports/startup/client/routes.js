@@ -6,6 +6,7 @@ import '../../ui/layouts/inside/inside';
 import '/imports/ui/login/login.js';
 import '../../ui/register/register';
 import '../../ui/resolutions/resolutions';
+import '../../ui/slangs/slangs';
 
 const privateRoutes = ['resolutions'];
 const notLoggedInRoutes = ['login','register'];
@@ -46,5 +47,11 @@ FlowRouter.route('/resolutions', {
     name: 'resolutions',
     action: function(params, queryParams) {
         BlazeLayout.render('InsideLayout', { top:'Header',main: 'Resolutions'});
+    }
+});
+FlowRouter.route('/slangs', {
+    name: 'slangs',
+    action: function(params, queryParams) {
+        BlazeLayout.render('InsideLayout', { top:'Header',main: 'Slangs'});
     }
 });

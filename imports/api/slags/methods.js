@@ -1,13 +1,10 @@
+import {Meteor} from 'meteor/meteor';
 import { Slangs } from './collection';
-
+ 
 Meteor.methods({
     'Slangs.add'(slang,definition) {
-        // this.userId
-        // Meteor.userId();
-        // Meteor.user();
-        //check if user is logged in
-        if (this.userId) {
-            const resolutionId = Slangs.insert({slang, definition, authorId: this.userId});
+    if (this.userId) {
+            const slangId = Slangs.insert({slang, definition, authorId: this.userId});
         }
     },
     'Slangs.delete'(id){

@@ -5,3 +5,4 @@ import '../../ui/resolutions/resolutions';
 import '../../ui/header/header';
 import '../../ui/home/home';
 import '../../ui/register/register';
+import '../../ui/slangs/slangs';
