@@ -1,6 +1,7 @@
 
 import { Template } from 'meteor/templating';
 import {Slangs} from '../../api/slags/collection';
+import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import './slangs.html';
 import './slang.html';
@@ -23,12 +24,34 @@ const slangSchema = new SimpleSchema({
   { tracker: Tracker }
 );
 
+Template.Slangs.onCreated(function () {
+  this.subscribe("slangs");
 
+  this.slang = new ReactiveVar(null);
+});
+
+Template.Slangs.helpers({
+  slangs: function(){
+    console.log('helloooooooo')
+      return Slangs.find({}, { sort: { createdAt: -1 }}).fetch();
+  },
+  currentSlang() {
+    return Template.instance().slang.get();
+  }
+});
 
 Template.Slangs.events({
-  'click #add':function(event){
+  'click #add':function(event, template){
        event.preventDefault();
+       template.slang.set(null);
        $('#slangFormModal').modal('show');    
+  },
+  'click .update':function(event, template){
+    const slang = Slangs.findOne({_id: this._id});
+    template.slang.set(slang);
+
+    $('#slangFormModal').modal('show');
+    
   }
 });
 
@@ -37,20 +60,31 @@ Template.NewSlangs.helpers({
     return slangSchema;
   },
   currentSlang() {
-    $('#slangFormModal').modal('hide');
+    return this.slang;
   }
 });
 
-Template.Slangs.onCreated(function () {
-  this.subscribe("slangs");
+Template.NewSlangs.events({
+  
 });
 
-Template.Slangs.helpers({
-  slangs: function(){
-      return Slangs.find({}, { sort: { createdAt: -1 }});
-  }
-});
 
+Template.ListSlangs.events({
+    
+    'click .delete':function(event){
+         event.preventDefault(); 
+         const id = this._id
+        Meteor.call('Slangs.delete',id,function(error, result) {
+            if (error) {
+                alert('slang not deleted');
+            } else {
+                alert('slang has been deleted!');
+                console.log(id)
+            }
+        });
+        
+    }
+})
 
 
 AutoForm.addHooks('insertSlangForm', {
@@ -63,72 +97,30 @@ AutoForm.addHooks('insertSlangForm', {
     e=this.event;
     e.preventDefault();
 
-    Meteor.call('Slangs.add',slang.slang,slang.definition,(error,res) => {
-             if(!error){
-                self.done();
-                $('#slangFormModal').modal('hide');
-             }else{
-               self.done(new Error(error.reason));
-               alert(error.reason)
-             }
-          })  
+    if (this.docId) {
+      Meteor.call('Slangs.update',this.docId, slang.slang,slang.definition,(error,res) => {
+        if(!error){
+           self.done();
+           $('#slangFormModal').modal('hide');
+           console.log(slang)
+        }else{
+          self.done(new Error(error.reason));
+          alert(error.reason)
+        }
+      })  
+    } else {
+    
+      Meteor.call('Slangs.add',slang.slang,slang.definition,(error,res) => {
+        if(!error){
+           self.done();
+           $('#slangFormModal').modal('hide');
+           console.log(slang)
+        }else{
+          self.done(new Error(error.reason));
+          alert(error.reason)
+        }
+     })  
+    }
+  
+    
   }});
-
-
-
-
-
-
-// Template.NewSlangs.events({
-//   'click #save': function(event) {
-//     event.preventDefault();
-
-//     var slang=event.target.slang.value;
-//     var definition = event.target.definition.value;
-
-//     Meteor.call('Slangs.add', slang,definition, function(error, result) {
-//       if (error) {
-//         alert(error);
-//       }else{
-//         console.log('A new slang added')
-//       }
-//     });
-
-//     $('#slangFormModal').modal('hide');
-//   }
-// });
-
-
-
-// Template.Slangs.events({
-//   'submit .new-slang'(event){
-//     event.preventDeafult();
-//     const slang =event.target.slang.value;
-//     const definition = event.target.definition.value;
-    
-//     Meteor.call('Slangs.add',slang,definition,function(error,res){
-//       if(error){
-//         alert('slang has not added');
-//       }else{
-//         //alert('slang has been added');
-//         console.log(slang);
-//         console.logh(definition);
-//       }
-//     })
-//     event.target.slang.value='';
-//     event.target.definition.value='';
-//   },
-//   'click .delete':function(event){
-//     Meteor.call('Slangs.delete',this._id,function(error, result) {
-//       if (error) {
-//         alert('resolution not deleted');
-//       } else {
-//         alert('resolution has been deleted!');
-//       }
-//     });
-//   event.stopImmediatePropagation();
-//   event.stopPropagation();
-    
-//   }
-// });
-

@@ -1,16 +1,16 @@
 <template name="Slangs">
     <h3>Slangs page</h3>
       <a href="#" id="add" class="btn btn-primary">Add</a>
-       {{> NewSlangs}}
+       {{> NewSlangs slang=currentSlang}}
 
        <h5>Here are our slangs:</h5>
-          <ul>
+
+            <div class="row">
             {{#each slangs}}
                 {{> ListSlangs}}
-                <button class="update">Update resolution</button>
-                <button class="delete">Remove resolution</button>
-            {{/each}}
-          </ul>
+                {{/each}}
+
+            </div>
        
    
 </template>
