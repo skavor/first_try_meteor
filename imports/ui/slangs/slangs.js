@@ -18,17 +18,12 @@ const slangSchema = new SimpleSchema({
   definition:{
     type: String,
     label: "Description",
-    max: 250
-  // },
-  // tags: Array,
-  // 'tags.$': String,
-  // author: {
-  //   type: Object
-  // },
-  // 'author.name': String,
-  // 'author.email': SimpleSchema.RegEx.EmailWithTLD
+    max: 250}
+  },
+  { tracker: Tracker }
+);
 
-}},{ tracker: Tracker });
+
 
 Template.Slangs.events({
   'click #add':function(event){
@@ -45,11 +40,45 @@ Template.NewSlangs.helpers({
     $('#slangFormModal').modal('hide');
   }
 });
-Template.ListSlangs.helpers({
+
+Template.Slangs.onCreated(function () {
+  this.subscribe("slangs");
+});
+
+Template.Slangs.helpers({
   slangs: function(){
       return Slangs.find({}, { sort: { createdAt: -1 }});
   }
 });
+
+
+
+AutoForm.addHooks('insertSlangForm', {
+  onSubmit: function(slang, updateDoc, currentDoc) {
+    // You must call this.done()!
+    //this.done(); // submitted successfully, call onSuccess
+    //this.done(new Error('foo')); // failed to submit, call onError with the provided error
+    //this.done(null, "foo"); // submitted successfully, call onSuccess with `result` arg set to "foo"
+    self = this;
+    e=this.event;
+    e.preventDefault();
+
+    Meteor.call('Slangs.add',slang.slang,slang.definition,(error,res) => {
+             if(!error){
+                self.done();
+                $('#slangFormModal').modal('hide');
+             }else{
+               self.done(new Error(error.reason));
+               alert(error.reason)
+             }
+          })  
+  }});
+
+
+
+
+
+
 // Template.NewSlangs.events({
 //   'click #save': function(event) {
 //     event.preventDefault();
@@ -103,24 +132,3 @@ Template.ListSlangs.helpers({
 //   }
 // });
 
-AutoForm.addHooks('insertSlangForm', {
-  onSubmit: function(slang, updateDoc, currentDoc) {
-    // You must call this.done()!
-    //this.done(); // submitted successfully, call onSuccess
-    //this.done(new Error('foo')); // failed to submit, call onError with the provided error
-    //this.done(null, "foo"); // submitted successfully, call onSuccess with `result` arg set to "foo"
-    self = this;
-    e=this.event;
-    e.preventDefault();
-
-    Meteor.call('Slangs.add',slang.slang,slang.definition,(error,res) => {
-             if(!error){
-                self.done();
-                $('#slangFormModal').modal('hide');
-             }else{
-               self.done(new Error(error.reason));
-               alert(error.reason)
-             }
-          })  
-  },
-})
