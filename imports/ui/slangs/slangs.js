@@ -32,7 +32,6 @@ Template.Slangs.onCreated(function () {
 
 Template.Slangs.helpers({
   slangs: function(){
-    console.log('helloooooooo')
       return Slangs.find({}, { sort: { createdAt: -1 }}).fetch();
   },
   currentSlang() {
@@ -63,12 +62,6 @@ Template.NewSlangs.helpers({
     return this.slang;
   }
 });
-
-Template.NewSlangs.events({
-  
-});
-
-
 Template.ListSlangs.events({
     
     'click .delete':function(event){
@@ -85,7 +78,6 @@ Template.ListSlangs.events({
         
     }
 })
-
 
 AutoForm.addHooks('insertSlangForm', {
   onSubmit: function(slang, updateDoc, currentDoc) {
@@ -109,7 +101,6 @@ AutoForm.addHooks('insertSlangForm', {
         }
       })  
     } else {
-    
       Meteor.call('Slangs.add',slang.slang,slang.definition,(error,res) => {
         if(!error){
            self.done();
@@ -120,7 +111,5 @@ AutoForm.addHooks('insertSlangForm', {
           alert(error.reason)
         }
      })  
-    }
-  
-    
+    } 
   }});
