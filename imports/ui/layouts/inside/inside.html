@@ -1,7 +1,11 @@
 <template name="InsideLayout">
+    {{> Header}}
+    <br>
     <div class="container">
-        {{> Header}}
+        
         <h2>{{title}}</h2>
         {{> Template.dynamic template=main}}
     </div>
+    <br>
+    {{> Footer}}
 </template>
